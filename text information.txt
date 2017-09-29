@@ -85,6 +85,42 @@ namespace _03.On_Time_for_the_Exam
                     Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours after the start");
                 }
             }
+
+
+            int hourExam = inputHourOfTheExam;
+            int minutesExam = inputMinutesOfTheExam;
+            int hourArrival = inputHourOfArival;
+            int minutesArrival = inputMinutesOfArival;
+
+            int examTime = hourExam * 60 + minutesExam;
+            int studentsTime = hourArrival * 60 + minutesArrival;
+            int minutesDifference = studentsTime - examTime;
+            Console.WriteLine(minutesDifference);
+
+            if (minutesDifference < -30)
+                Console.WriteLine("Early");
+            else if (minutesDifference <= 0)
+                Console.WriteLine("On time");
+            else
+                Console.WriteLine("Late");
+            if (minutesDifference != 0)
+            {
+                int hours = Math.Abs(minutesDifference / 60);
+                int minutes = Math.Abs(minutesDifference % 60);
+                if (hours > 0)
+                {
+                    if (minutes < 10)
+                        Console.Write(hours + ":0" + minutes + "hours");
+                    else
+                        Console.Write(hours + ":" + minutes + "hours");
+                }
+                else
+                    Console.Write(minutes + " minutes");
+                if (minutesDifference < 0)
+                    Console.WriteLine(" before the start");
+                else
+                    Console.WriteLine(" after the start");
+            }
         }
     }
 }
