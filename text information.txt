@@ -23,7 +23,12 @@ namespace _03.On_Time_for_the_Exam
             DateTime timeExamStarts = DateTime.ParseExact(inputTimeExamStarts, timeFormat, CultureInfo.InvariantCulture);
             DateTime timeStudentArives = DateTime.ParseExact(inputTimeOfArival, timeFormat, CultureInfo.InvariantCulture);
             DateTime onTimeForTheExam = timeExamStarts.AddMinutes(-30);
-          
+
+            //Reality check #1
+            //Console.WriteLine($"Time of the exam: {timeExamStarts.ToString(timeFormat)}");
+            //Console.WriteLine($"Time to arive: {onTimeForTheExam.ToString(timeFormat)}");
+            //Console.WriteLine($"Time of arivel: {timeStudentArives.ToString(timeFormat)}");
+
             //Calculate time difference
             TimeSpan timeDifference = timeExamStarts - timeStudentArives;
             double hoursDiff = Math.Abs(timeDifference.Hours);
