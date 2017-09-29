@@ -10,16 +10,19 @@ namespace _03.On_Time_for_the_Exam
     class Program
     {
         static void Main(string[] args)
-        {            
+        {
+            //Take input from the console
             string inputHourOfTheExam = Console.ReadLine();
-            string inputMinutesOfTheExam = Console.ReadLine(); 
+            string inputMinutesOfTheExam = Console.ReadLine();
             string inputHourOfArival = Console.ReadLine();
             string inputMinutesOfArival = Console.ReadLine();
-            
+
+            //Set the string formats for the Datetime variables
             string timeFormat = "H:mm";
             string inputTimeExamStarts = ($"{inputHourOfTheExam}:{inputMinutesOfTheExam}");
             string inputTimeOfArival = ($"{inputHourOfArival}:{inputMinutesOfArival}");
-            
+
+            //Set the DateTime variables
             DateTime timeExamStarts = DateTime.ParseExact(inputTimeExamStarts, timeFormat, CultureInfo.InvariantCulture);
             DateTime timeStudentArives = DateTime.ParseExact(inputTimeOfArival, timeFormat, CultureInfo.InvariantCulture);
             DateTime onTimeForTheExam = timeExamStarts.AddMinutes(-30);            
@@ -62,7 +65,7 @@ namespace _03.On_Time_for_the_Exam
                 {
                     string minutesDiffToString = minutesDiff.ToString("00");
                     Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours before the start");
-                }                
+                }
             }
             else if (late)
             {
@@ -76,6 +79,42 @@ namespace _03.On_Time_for_the_Exam
                     string minutesDiffToString = minutesDiff.ToString("00");
                     Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours after the start");
                 }
+            }
+
+
+            int hourExam = inputHourOfTheExam;
+            int minutesExam = inputMinutesOfTheExam;
+            int hourArrival = inputHourOfArival;
+            int minutesArrival = inputMinutesOfArival;
+
+            int examTime = hourExam * 60 + minutesExam;
+            int studentsTime = hourArrival * 60 + minutesArrival;
+            int minutesDifference = studentsTime - examTime;
+            Console.WriteLine(minutesDifference);
+
+            if (minutesDifference < -30)
+                Console.WriteLine("Early");
+            else if (minutesDifference <= 0)
+                Console.WriteLine("On time");
+            else
+                Console.WriteLine("Late");
+            if (minutesDifference != 0)
+            {
+                int hours = Math.Abs(minutesDifference / 60);
+                int minutes = Math.Abs(minutesDifference % 60);
+                if (hours > 0)
+                {
+                    if (minutes < 10)
+                        Console.Write(hours + ":0" + minutes + "hours");
+                    else
+                        Console.Write(hours + ":" + minutes + "hours");
+                }
+                else
+                    Console.Write(minutes + " minutes");
+                if (minutesDifference < 0)
+                    Console.WriteLine(" before the start");
+                else
+                    Console.WriteLine(" after the start");
             }
         }
     }
