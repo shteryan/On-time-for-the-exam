@@ -10,19 +10,16 @@ namespace _03.On_Time_for_the_Exam
     class Program
     {
         static void Main(string[] args)
-        {
-            //Take input from the console
+        {            
             string inputHourOfTheExam = Console.ReadLine();
             string inputMinutesOfTheExam = Console.ReadLine(); 
             string inputHourOfArival = Console.ReadLine();
             string inputMinutesOfArival = Console.ReadLine();
-
-            //Set the string formats for the Datetime variables
+            
             string timeFormat = "H:mm";
             string inputTimeExamStarts = ($"{inputHourOfTheExam}:{inputMinutesOfTheExam}");
             string inputTimeOfArival = ($"{inputHourOfArival}:{inputMinutesOfArival}");
-
-            //Set the DateTime variables
+            
             DateTime timeExamStarts = DateTime.ParseExact(inputTimeExamStarts, timeFormat, CultureInfo.InvariantCulture);
             DateTime timeStudentArives = DateTime.ParseExact(inputTimeOfArival, timeFormat, CultureInfo.InvariantCulture);
             DateTime onTimeForTheExam = timeExamStarts.AddMinutes(-30);
