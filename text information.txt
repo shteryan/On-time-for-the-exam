@@ -1,1 +1,90 @@
-Content...
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _03.On_Time_for_the_Exam
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Take input from the console
+            string inputHourOfTheExam = Console.ReadLine();
+            string inputMinutesOfTheExam = Console.ReadLine(); 
+            string inputHourOfArival = Console.ReadLine();
+            string inputMinutesOfArival = Console.ReadLine();
+
+            //Set the string formats for the Datetime variables
+            string timeFormat = "H:mm";
+            string inputTimeExamStarts = ($"{inputHourOfTheExam}:{inputMinutesOfTheExam}");
+            string inputTimeOfArival = ($"{inputHourOfArival}:{inputMinutesOfArival}");
+
+            //Set the DateTime variables
+            DateTime timeExamStarts = DateTime.ParseExact(inputTimeExamStarts, timeFormat, CultureInfo.InvariantCulture);
+            DateTime timeStudentArives = DateTime.ParseExact(inputTimeOfArival, timeFormat, CultureInfo.InvariantCulture);
+            DateTime onTimeForTheExam = timeExamStarts.AddMinutes(-30);
+
+            //Reality check #1
+            //Console.WriteLine($"Time of the exam: {timeExamStarts.ToString(timeFormat)}");
+            //Console.WriteLine($"Time to arive: {onTimeForTheExam.ToString(timeFormat)}");
+            //Console.WriteLine($"Time of arivel: {timeStudentArives.ToString(timeFormat)}");
+
+            //Calculate time difference
+            TimeSpan timeDifference = timeExamStarts - timeStudentArives;
+            double hoursDiff = Math.Abs(timeDifference.Hours);
+            double minutesDiff = Math.Abs(timeDifference.Minutes);
+
+            //Reality check #2
+            //Console.WriteLine($"Time difference: {hoursDiff}:{minutesDiff}");
+
+            //Set up booleans for the logical checks
+            bool early = timeStudentArives < onTimeForTheExam;
+            bool onTime = timeStudentArives >= onTimeForTheExam && timeStudentArives <= timeExamStarts;
+            bool late = timeStudentArives > timeExamStarts;
+
+            //Make the logical checks and print the result
+            if (early)
+            {
+                Console.WriteLine($"Early");
+                if (hoursDiff == 0 && minutesDiff != 0)
+                {
+                    Console.WriteLine($"{minutesDiff} minutes before the start");
+                }
+                else if (hoursDiff != 0)
+                {
+                    string minutesDiffToString = minutesDiff.ToString("00");
+                    Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours before the start");
+                }
+            }
+            else if (onTime)
+            {
+                Console.WriteLine($"On time");
+                if (hoursDiff == 0 && minutesDiff != 0)
+                {
+                    Console.WriteLine($"{minutesDiff} minutes before the start");
+                }
+                else if (hoursDiff != 0)
+                {
+                    string minutesDiffToString = minutesDiff.ToString("00");
+                    Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours before the start");
+                }                
+            }
+            else if (late)
+            {
+                Console.WriteLine($"Late");
+                if (hoursDiff == 0 && minutesDiff != 0)
+                {
+                    Console.WriteLine($"{minutesDiff} minutes after the start");
+                }
+                else if (hoursDiff != 0)
+                {
+                    string minutesDiffToString = minutesDiff.ToString("00");
+                    Console.WriteLine($"{hoursDiff}:{minutesDiffToString} hours after the start");
+                }
+            }
+        }
+    }
+}
